@@ -4,21 +4,15 @@ import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 const styles = StyleSheet.create({
   itemContainer: {
     height: 100,
-    width: "100%",
+    width: "50%",
     borderColor: "grey",
     borderWidth: 1,
     flexDirection: "row",
-  },
-  leftContainer: {
-    width: 100,
-  },
-  rightContainer: {
-    flex: 1,
-    padding: 10,
-    justifyContent: "space-between",
+    padding: 30,
   },
   text: {
-    fontSize: 16,
+    fontSize: 22,
+    fontWeight: "bold",
   },
   subText: {
     fontSize: 12,
@@ -26,23 +20,12 @@ const styles = StyleSheet.create({
   },
 });
 
-const ListItem = ({ imageUrl, author, title, onPress }) => {
+const ListItem = ({ title, onPress }) => {
   return (
     <TouchableOpacity style={styles.itemContainer} onPress={onPress}>
-      <View style={styles.leftContainer}>
-        {!!imageUrl && (
-          <Image
-            style={{ width: 100, height: 100 }}
-            source={{ url: imageUrl }}
-          />
-        )}
-      </View>
-      <View style={styles.rightContainer}>
-        <Text numberOfLines={3} style={styles.text}>
-          {title}
-        </Text>
-        <Text style={styles.subText}>{author}</Text>
-      </View>
+      <Text numberOfLines={3} style={styles.text}>
+        {title}
+      </Text>
     </TouchableOpacity>
   );
 };

@@ -1,21 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, FlatList, SafeAreaView } from "react-native";
+import _ from "lodash";
 import ListItem from "../components/ListItem";
 import Constants from "expo-constants";
 import axios from "axios";
 
-const URL = `http://newsapi.org/v2/top-headlines?country=jp&apiKey=${Constants.manifest.extra.newsApiKey}`;
+const URL = `https://tetsudo.rti-giken.jp/free/delay.json`;
 
 export default HomeScreen = ({ navigation }) => {
-  const [articles, setArticles] = useState([]);
+  const [infomations, setInfomations] = useState([]);
   useEffect(() => {
-    fetchArticles();
+    fetchInfomations();
   }, []);
 
-  const fetchArticles = async () => {
+  const fetchInfomations = async () => {
     try {
       const response = await axios.get(URL);
-      setArticles(response.data.articles);
+      setInfomations(response.data);
     } catch (error) {
       console.error(error);
     }
@@ -24,12 +25,10 @@ export default HomeScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
-        data={articles}
+        data={infomations}
         renderItem={({ item }) => (
           <ListItem
-            imageUrl={item.urlToImage}
-            title={item.title}
-            author={item.author}
+            title={item.name}
             onPress={() => navigation.navigate("Article", { article: item })}
           />
         )}
